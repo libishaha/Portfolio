@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --gray: #888888;
+  --light-gray: #cccccc;
+  --bg: #f0f0f0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg);
+  font-family: 'Share Tech Mono', monospace;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+}
+
+/* Scanline overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Pixel cursor */
+* {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='0' y='0' width='2' height='12' fill='black'/%3E%3Crect x='2' y='2' width='2' height='8' fill='black'/%3E%3Crect x='4' y='4' width='2' height='6' fill='black'/%3E%3C/svg%3E"), auto;
+}
+
+button, [role="button"], .clickable {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='4' y='0' width='2' height='2' fill='black'/%3E%3Crect x='2' y='2' width='2' height='2' fill='black'/%3E%3Crect x='4' y='2' width='6' height='2' fill='black'/%3E%3Crect x='0' y='4' width='2' height='2' fill='black'/%3E%3Crect x='2' y='4' width='8' height='2' fill='black'/%3E%3Crect x='2' y='6' width='2' height='2' fill='black'/%3E%3Crect x='4' y='6' width='2' height='2' fill='black'/%3E%3Crect x='6' y='6' width='2' height='2' fill='black'/%3E%3Crect x='8' y='6' width='2' height='2' fill='black'/%3E%3C/svg%3E"), pointer;
+}
+
+/* Pixel border utility */
+.pixel-border {
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px #000;
+}
+
+.pixel-border-inset {
+  border: 3px solid #000;
+  box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #888;
+}
+
+/* Window title bar */
+.window-titlebar {
+  background: #000;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+/* Desktop icon */
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  transition: background 0.1s;
+  border: 2px solid transparent;
+  width: 80px;
+}
+
+.desktop-icon:hover {
+  border: 2px dotted #000;
+  background: rgba(0,0,0,0.08);
+}
+
+.desktop-icon:active {
+  background: rgba(0,0,0,0.15);
+}
+
+.desktop-icon span {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 7px;
+  text-align: center;
+  color: #000;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Pixel button */
+.pixel-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 9px;
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  padding: 8px 14px;
+  color: #000;
+  transition: all 0.05s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pixel-btn:hover {
+  background: #000;
+  color: #fff;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #000;
+}
+
+.pixel-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+/* Pixel input */
+.pixel-input {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  background: #fff;
+  border: 2px solid #000;
+  padding: 8px 10px;
+  color: #000;
+  outline: none;
+  width: 100%;
+}
+
+.pixel-input:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 2px #000;
+}
+
+/* Pixel card */
+.pixel-card {
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 5px 5px 0 #000;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.pixel-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #000;
+}
+
+/* Tool icon grid item */
+.tool-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+  transition: all 0.1s;
+  min-width: 80px;
+}
+
+.tool-icon-item:hover {
+  background: #000;
+  color: #fff;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #666;
+}
+
+.tool-icon-item:hover span {
+  color: #fff;
+}
+
+.tool-icon-item span {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 6px;
+  text-align: center;
+  color: #000;
+}
+
+/* Blink animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Window open animation */
+@keyframes windowOpen {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.window-open {
+  animation: windowOpen 0.15s steps(3) forwards;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* Scrollbar pixel style */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-left: 2px solid #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border: 2px solid #f0f0f0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Dock */
+.dock-btn {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.05s;
+}
+
+.dock-btn:hover {
+  background: #000;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 #555;
+}
+
+.dock-btn:hover svg, .dock-btn:hover span {
+  color: #fff;
+  fill: #fff;
+}
+
+/* Warning dialog */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.3s steps(3);
+}
+
+/* Typing cursor */
+.typing::after {
+  content: '█';
+  animation: blink 0.8s step-end infinite;
+}

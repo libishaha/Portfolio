@@ -1,4 +1,4 @@
-# Libisha Sherani — Developer Portfolio
+# Libisha Shirani — Developer Portfolio
 
 A full-stack retro pixel-art portfolio with a React frontend and FastAPI backend.
 
